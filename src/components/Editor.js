@@ -3,7 +3,7 @@ import { TwitterPicker } from "react-color";
 import DrawingPanel from "./DrawingPanel";
 //  här ska alla övriga komponeneter rendreras ut
 
-export default function Editor() {
+export default function Editor({ rows, cols }) {
   const [selectedColor, setSelectedColor] = useState("");
   function handleTwitterPicker(e) {
     console.log(e.hex);
@@ -11,10 +11,14 @@ export default function Editor() {
   }
   console.log(selectedColor);
   return (
-    <div>
+    <div className="container">
       <TwitterPicker onChange={handleTwitterPicker} />
-      <DrawingPanel />
-      <h1 style={{ color: selectedColor }}>COLOR</h1>
+      {selectedColor.length > 1 ? (
+        <p style={{ color: selectedColor }}>selected color for your art</p>
+      ) : (
+        <p>select a color to start your artwork</p>
+      )}
+      <DrawingPanel rows={rows} cols={cols} selectedColor={selectedColor} />
     </div>
   );
 }
